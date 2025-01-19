@@ -1,0 +1,25 @@
+{
+"language" : "اللغة",
+  "home" : "الصفحة الرئيسية",
+  "general" : "الصفحة العامة",
+  "arabic":  "اللغة العربية ",
+  "english":  "اللغة الانجليزية ",
+  "theme":  "النمط ",
+  "newsapp":  "الأخبار ",
+  "gotohome":  "الذهاب الي الصفحة الرئيسية ",
+  "search":  "البحث ",
+  "light":  "نهاري",
+  "dark":  "ليلي",
+  "goodmorning":  "صباح الخير ",
+  "hereissomwnewsforyou":  "احضرنا لك بعض الاخبار",
+  "viewall":  "عرض",
+  "sport": "الرياضة",
+  "entertainment": "الترفيه",
+  "health": "الصحة",
+  "technology": "التكنولوجيا",
+  "business": "الاعمال",
+  "science": "العلوم"
+
+
+
+}
