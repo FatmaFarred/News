@@ -1,9 +1,11 @@
+import 'package:News/category/Newsbuilder/News%20view%20model.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/app%20colors.dart';
 import 'package:News/Apis/NewsResponse.dart';
 import 'package:News/Apis/RecourceResponce.dart';
 import 'package:News/Apis/api%20manager.dart';
 import 'package:News/category/Newsbuilder/News%20widget.dart';
+import 'package:provider/provider.dart';
 
 class NewsBuilder extends StatefulWidget {
   Sources source ;
@@ -14,41 +16,44 @@ class NewsBuilder extends StatefulWidget {
 }
 
 class _NewsBuilderState extends State<NewsBuilder> {
+  NewsViewModel newsViewModel =NewsViewModel ();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    newsViewModel.getNewsFromApi(widget.source.id);
+    print (widget.source.id);
+  }
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<NewsResponse?>(future: ApiManeger.getnewsfromapiById(widget.source.id??""), builder: (context,snapshot){
-      if (snapshot.connectionState==ConnectionState.waiting){
-        return Center(child: CircularProgressIndicator(color: AppColors.grey,),
-        );
-      }else if (snapshot.hasError){
-        return Column(children: [
-          Text("Something went wrong",style: Theme.of(context).textTheme.labelMedium),
-          ElevatedButton(onPressed: (){
-            ApiManeger.getnewsfromapiById(widget.source.id??"");
-            setState(() {
+    return ChangeNotifierProvider(create: (context)=>newsViewModel,
+    child: Consumer<NewsViewModel>(builder: (context,newsViewModel,child){
+      if (newsViewModel.errorMessage!=null){
+        return Column(mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(newsViewModel!.errorMessage!),
+            ElevatedButton(onPressed: (){
+              newsViewModel.getNewsFromApi(widget.source.id);
+              setState(() {
 
-            });
-          }, child: Text("Try Again",style: Theme.of(context).textTheme.labelLarge))
-        ],);
-      }else if (snapshot.data!.status=="error"  ){
-        return Column(children: [
-          Text(snapshot.data!.message!,style: Theme.of(context).textTheme.labelMedium),
-          ElevatedButton(onPressed: (){
-            ApiManeger.getnewsfromapiById(widget.source.id??"");
-            setState(() {
+              });
+            }, child: Text("try again "))
 
-            });
-          }, child: Text("Try Again",style: Theme.of(context).textTheme.labelLarge))
-        ]);
-      } else {
-        var newslist = snapshot.data!.articles!;
-        return ListView.builder(itemCount:newslist.length ,
-            itemBuilder: (context,index){
-          return Newswidget(article: newslist[index]);
-
-        });
+          ],);
       }
-    }
+      if (newsViewModel.newslist==null){
+        return Center(child: CircularProgressIndicator(color:Colors.black ,),);
+      } else {
+        return ListView.builder(itemCount: newsViewModel.newslist!.length,
+            itemBuilder: (context, index) {
+              return Newswidget(article: newsViewModel.newslist![index]);
+            });
+      }
+
+    }),
+
     );
+
   }
 }
