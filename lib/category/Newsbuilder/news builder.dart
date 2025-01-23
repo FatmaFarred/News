@@ -1,4 +1,5 @@
 import 'package:News/category/Newsbuilder/News%20view%20model.dart';
+import 'package:News/category/catehory%20viewmoel.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/app%20colors.dart';
 import 'package:News/Apis/NewsResponse.dart';
@@ -6,6 +7,8 @@ import 'package:News/Apis/RecourceResponce.dart';
 import 'package:News/Apis/api%20manager.dart';
 import 'package:News/category/Newsbuilder/News%20widget.dart';
 import 'package:provider/provider.dart';
+
+import '../newsdeatilsbottom sheet.dart';
 
 class NewsBuilder extends StatefulWidget {
   Sources source ;
@@ -22,6 +25,7 @@ class _NewsBuilderState extends State<NewsBuilder> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     newsViewModel.getNewsFromApi(widget.source.id);
     print (widget.source.id);
   }
@@ -45,10 +49,15 @@ class _NewsBuilderState extends State<NewsBuilder> {
       if (newsViewModel.newslist==null){
         return Center(child: CircularProgressIndicator(color:Colors.black ,),);
       } else {
-        return ListView.builder(itemCount: newsViewModel.newslist!.length,
-            itemBuilder: (context, index) {
-              return Newswidget(article: newsViewModel.newslist![index]);
-            });
+        return InkWell(onTap:() {
+         showModalBottomSheet(context: context, builder: (context)=>NewsDetailsBottomSheet());
+
+        },
+          child: ListView.builder(itemCount: newsViewModel.newslist!.length,
+              itemBuilder: (context, index) {
+                return Newswidget(article: newsViewModel.newslist![index]);
+              }),
+        );
       }
 
     }),
@@ -56,4 +65,6 @@ class _NewsBuilderState extends State<NewsBuilder> {
     );
 
   }
+
+
 }
