@@ -1,6 +1,8 @@
+import 'package:News/APP%20Utilies/obsever.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/Apptheme.dart';
 import 'package:News/HomeScreen/HomeScreen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:News/category/categoryscreen.dart';
@@ -10,8 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:News/provider/languageprovider.dart';
 
 void main() {
+  Bloc.observer=  MyBlocObserver();
 
-  runApp( 
+  runApp(
+
       MultiProvider(providers: [ChangeNotifierProvider(create: (context)=>Languageprovider()),
         ChangeNotifierProvider(create: (context)=>ThemeProvider(),)
       ],

@@ -12,4 +12,8 @@ class SourceSuccessState extends SourceState {
 
 }
 
+abstract class LanguageState {}
+
+class changelanguage extends LanguageState {}
+
 
