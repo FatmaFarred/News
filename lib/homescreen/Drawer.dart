@@ -1,3 +1,4 @@
+import 'package:News/provider/language%20provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:News/APP%20Utilies/Apptheme.dart';
@@ -6,7 +7,6 @@ import 'package:News/APP%20Utilies/assets.dart';
 import 'package:News/APP%20Utilies/fonts.dart';
 import 'package:News/HomeScreen/HomeScreen.dart';
 import 'package:News/provider/Theme%20provider.dart';
-import 'package:News/provider/languageprovider.dart';
 import 'package:provider/provider.dart';
 
 

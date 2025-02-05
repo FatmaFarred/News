@@ -7,13 +7,26 @@ import 'package:News/Apis/RecourceResponce.dart';
 import 'package:News/Apis/end%20points.dart';
 import 'package:News/Apis/Api%20constants.dart';
 import 'package:News/Apis/RecourceResponce.dart';
+import 'package:injectable/injectable.dart';
 
 import 'NewsResponse.dart';
 import 'end points.dart';
 //https://newsapi.org/v2/everything?q=bitcoin&apiKey=86da583b6d8b4b57a5bbe7831432a60f
 //https://newsapi.org/v2/top-headlines/sources?apiKey=86da583b6d8b4b57a5bbe7831432a60f
+@singleton
 class ApiManeger {
-  static Future<RecourceResponce?> getdatafromapi (String categoryid)async {
+  /*static ApiManeger? _istance;
+  ApiManeger._();
+
+  static ApiManeger getInstance (){
+
+      _istance??=ApiManeger._();
+      return _istance!;
+
+  }
+*/
+
+   Future<RecourceResponce?> getdatafromapi (String categoryid)async {
     Uri url = Uri.https(ApiConstants.baseSeverName, EndPoints.sourceApi,
         {"apiKey": ApiConstants.apikey,
           "category":categoryid
@@ -31,7 +44,7 @@ class ApiManeger {
     }
   }
 
-  static Future <NewsResponse?> getnewsfromapiById (String   SourceId)async{
+   Future <NewsResponse?> getnewsfromapiById (String   SourceId)async{
     Uri url = Uri.https(ApiConstants.baseSeverName,EndPoints.NewsApi,{
       "sources":SourceId,
       "apiKey":ApiConstants.apikey});

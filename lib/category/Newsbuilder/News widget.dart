@@ -1,10 +1,10 @@
+import 'package:News/provider/language%20provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/app%20colors.dart';
 import 'package:News/APP%20Utilies/fonts.dart';
 import 'package:News/Apis/NewsResponse.dart';
 import 'package:News/provider/Theme%20provider.dart';
-import 'package:News/provider/languageprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

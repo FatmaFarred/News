@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/assets.dart';
 import 'package:News/provider/Theme%20provider.dart';
-import 'package:News/provider/languageprovider.dart';
 import 'package:provider/provider.dart';
 
 class CategoryModel {
@@ -15,7 +14,6 @@ class CategoryModel {
 
   static List<CategoryModel> getCategoryModelList(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context);
-    var languageProvider = Provider.of<Languageprovider>(context);
 
     return [
       CategoryModel(

@@ -1,3 +1,5 @@
+import 'package:News/DI/DI.dart';
+import 'package:News/DI/Di_inject.dart';
 import 'package:News/category/Newsbuilder/News%20State.dart';
 import 'package:News/category/Newsbuilder/News_viewmodel_bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class NewsBuilder extends StatefulWidget {
 }
 
 class _NewsBuilderState extends State<NewsBuilder> {
-  News_ViewModel_Bloc news_viewModel_Bloc =News_ViewModel_Bloc ();
+  News_ViewModel_Bloc news_viewModel_Bloc =getIt<News_ViewModel_Bloc>();
 
   @override
   void initState() {

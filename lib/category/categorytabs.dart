@@ -1,3 +1,5 @@
+import 'package:News/DI/DI.dart';
+import 'package:News/DI/Di_inject.dart';
 import 'package:News/category/Newsbuilder/sources_viewmodel_bloc.dart';
 import 'package:News/category/source_state.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,7 @@ class CategoryTabs extends StatefulWidget {
 }
 
 class _CategoryTabsState extends State<CategoryTabs> {
-  Sources_bloc_viewModel sources_bloc_viewModel = Sources_bloc_viewModel ();
+  Sources_bloc_viewModel sources_bloc_viewModel =getIt<Sources_bloc_viewModel>();
 
   @override
   void initState() {

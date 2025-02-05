@@ -5,9 +5,10 @@ import 'package:News/APP%20Utilies/fonts.dart';
 import 'package:News/HomeScreen/Drawer.dart';
 import 'package:News/HomeScreen/category%20model.dart';
 import 'package:News/provider/Theme%20provider.dart';
-import 'package:News/provider/languageprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+
+import '../provider/language provider.dart';
 
 
 class HomeScreen extends StatelessWidget {
