@@ -10,7 +10,7 @@ class SourceRemoteDataSourceImpl implements SourceRemoteDataSource{
   SourceRemoteDataSourceImpl ({required this.apiManeger});
   @override
   Future<RecourceResponce?> getSources(String categoryId) async{
-     var response = await apiManeger.getdatafromapi(categoryId);
+     var response = await ApiManeger.getdatafromapi(categoryId);
      return response;
   }
 

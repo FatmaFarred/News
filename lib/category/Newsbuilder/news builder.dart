@@ -1,20 +1,14 @@
-import 'package:News/DI/DI.dart';
-import 'package:News/DI/Di_inject.dart';
-import 'package:News/category/Newsbuilder/News%20State.dart';
-import 'package:News/category/Newsbuilder/News_viewmodel_bloc.dart';
+import 'package:News/category/newsdeatilsbottom%20sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/app%20colors.dart';
 import 'package:News/Apis/NewsResponse.dart';
 import 'package:News/Apis/RecourceResponce.dart';
 import 'package:News/Apis/api%20manager.dart';
 import 'package:News/category/Newsbuilder/News%20widget.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-
-import '../newsdeatilsbottom sheet.dart';
 
 class NewsBuilder extends StatefulWidget {
   Sources source ;
+  int selectedindex=0;
   NewsBuilder ({required this .source});
 
   @override
@@ -22,82 +16,53 @@ class NewsBuilder extends StatefulWidget {
 }
 
 class _NewsBuilderState extends State<NewsBuilder> {
-  News_ViewModel_Bloc news_viewModel_Bloc =getIt<News_ViewModel_Bloc>();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    news_viewModel_Bloc.getNewsFromAPI(widget.source.id??"");
-
-  }
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<News_ViewModel_Bloc,NewsState>(
-      bloc:news_viewModel_Bloc ,
-        builder: (context,state){
-      if (state is NewsLoadingState){
-        return Center(child: CircularProgressIndicator(color:Colors.black ,),);
-
-      }else if (state is NewsErrorState){
-        return Column(mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(state!.errorMessage!,style: Theme.of(context).textTheme.titleMedium,),
-            ElevatedButton(onPressed: (){
-              news_viewModel_Bloc.getNewsFromAPI(widget.source?.id??"");
-
-            }, child: Text("try again "))
-
-          ],);
-      }else if (state is NewsSuccessState){
-        return InkWell(onTap:() {
-          showModalBottomSheet(context: context, builder: (context)=>NewsDetailsBottomSheet());
-
-        },
-          child: ListView.builder(itemCount: state.newsList!.length,
-              itemBuilder: (context, index) {
-                return Newswidget(article: state.newsList![index]);
-              }),
+    return FutureBuilder<NewsResponse?>(future: ApiManeger.getnewsfromapiById(widget.source.id??""), builder: (context,snapshot){
+      if (snapshot.connectionState==ConnectionState.waiting){
+        return Center(child: CircularProgressIndicator(color: AppColors.grey,),
         );
-      }else{
-        return Container();
-      }
+      }else if (snapshot.hasError){
+        return Column(children: [
+          Text("Something went wrong",style: Theme.of(context).textTheme.labelMedium),
+          ElevatedButton(onPressed: (){
+            ApiManeger.getnewsfromapiById(widget.source.id??"");
+            setState(() {
 
-    });
-    /*ChangeNotifierProvider(create: (context)=>newsViewModel,
-    child: Consumer<NewsViewModel>(builder: (context,newsViewModel,child){
-      if (newsViewModel.errorMessage!=null){
-        return Column(mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(newsViewModel!.errorMessage!,style: Theme.of(context).textTheme.titleMedium,),
-            ElevatedButton(onPressed: (){
-              newsViewModel.getNewsFromApi(widget.source.id);
-              setState(() {
+            });
+          }, child: Text("Try Again",style: Theme.of(context).textTheme.labelLarge))
+        ],);
+      }else if (snapshot.data!.status=="error"  ){
+        return Column(children: [
+          Text(snapshot.data!.message!,style: Theme.of(context).textTheme.labelMedium),
+          ElevatedButton(onPressed: (){
+            ApiManeger.getnewsfromapiById(widget.source.id??"");
+            setState(() {
 
-              });
-            }, child: Text("try again "))
-
-          ],);
-      }
-      if (newsViewModel.newslist==null){
-        return Center(child: CircularProgressIndicator(color:Colors.black ,),);
+            });
+          }, child: Text("Try Again",style: Theme.of(context).textTheme.labelLarge))
+        ]);
       } else {
-        return InkWell(onTap:() {
-         showModalBottomSheet(context: context, builder: (context)=>NewsDetailsBottomSheet());
+        var newslist = snapshot.data!.articles!;
+        return ListView.builder(itemCount:newslist.length ,
+            itemBuilder: (context,index){
 
-        },
-          child: ListView.builder(itemCount: newsViewModel.newslist!.length,
-              itemBuilder: (context, index) {
-                return Newswidget(article: newsViewModel.newslist![index]);
-              }),
-        );
+
+          widget.selectedindex=index;
+           return InkWell(onTap:(){
+             displayNewsDetailsDropdownsheet(newslist[index].urlToImage??"", newslist[index].content??"",
+                 newslist[index].url??""
+             );
+           },
+               child: Newswidget(article: newslist[index]));
+
+            });
       }
-
-    }),
-
+    }
     );
-*/
   }
-
+  void displayNewsDetailsDropdownsheet(String url ,String content,String urlrticle) {
+    showModalBottomSheet(context: context, builder:(context)=> NewsDetailsBottomSheet(content: content,urlImage:url ,urlrticle:urlrticle ,));
+  }
 
 }

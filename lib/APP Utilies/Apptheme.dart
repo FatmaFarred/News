@@ -5,6 +5,8 @@ import 'package:News/APP%20Utilies/fonts.dart';
 class AppTheme{
   static final ThemeData lightTheme=ThemeData(
       primaryColor: AppColors.white,
+      bottomSheetTheme: BottomSheetThemeData(
+          backgroundColor: AppColors.black,clipBehavior:Clip.antiAlias),
 
       appBarTheme: AppBarTheme(backgroundColor: Colors.transparent,
         centerTitle: true,
@@ -30,6 +32,8 @@ class AppTheme{
 
 static final ThemeData darkTheme=ThemeData(
   primaryColor: AppColors.black,
+    bottomSheetTheme: BottomSheetThemeData(backgroundColor: AppColors.white,clipBehavior:Clip.antiAlias),
+
 
     appBarTheme: AppBarTheme(backgroundColor: Colors.transparent,
 
