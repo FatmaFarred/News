@@ -13,9 +13,11 @@ import '../provider/language provider.dart';
 
 class NewsDetailsBottomSheet extends StatelessWidget {
 
+
   String urlImage;
   String content;
   String urlrticle;
+
   NewsDetailsBottomSheet({required this.urlImage, required this.content, required this.urlrticle });
 
 
@@ -59,28 +61,25 @@ class NewsDetailsBottomSheet extends StatelessWidget {
       
               ),
             ),
-            Text(content ?? "", style: AppFontStyles.balck16bold),
+            Text(content ?? "",style: themeProvider.currentTheme==ThemeMode.dark?AppFontStyles.balck20medium:AppFontStyles.white20medium),
       
             CustomeElevatedButtom(
-              text: "View Full Article", style: AppFontStyles.white20bold,
-              onpressed: LaunchMode
+              text: "View Full Article", style: Theme.of(context).textTheme.labelLarge,
+              onpressed: _launchUrl
 
              )
-      
+
       
           ],),
       ),
     );
   }
 
-  /*Future<void> launchUrl(String urlrticle) async {
-    final Uri url = Uri.parse(urlrticle);
-    try {
-      launchUrl( urlrticle);
-    }catch (e){
-      print ("can't launch$urlrticle");
-    }
+  Future<void> _launchUrl() async {
+    final Uri url = Uri.parse(urlrticle); // Parse the urlArticle here
+    await launchUrl(url,mode: LaunchMode.externalApplication);
 
-  }*/
+
+  }
 
 }

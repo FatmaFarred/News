@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'Apis/NewsResponse.dart';
 import 'Apis/RecourceResponce.dart';
 import 'DI/Di_inject.dart';
+import 'category/Newsbuilder/search tab.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,6 +52,8 @@ class MyApp extends StatelessWidget {
       initialRoute: CategoryScreen.routeName,
       routes: {
         CategoryScreen.routeName:(context)=>CategoryScreen(),
+        searchTab.routeName:(context)=>searchTab(),
+
 
       },
       localizationsDelegates: AppLocalizations.localizationsDelegates,

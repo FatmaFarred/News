@@ -1,3 +1,4 @@
+import 'package:News/category/Newsbuilder/search%20tab.dart';
 import 'package:flutter/material.dart';
 import 'package:News/APP%20Utilies/app%20colors.dart';
 import 'package:News/HomeScreen/Drawer.dart';
@@ -21,7 +22,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
      var width=   MediaQuery.of(context).size.width;
     return Scaffold(
       appBar:AppBar(title:selectedCategory==null? Text(AppLocalizations.of(context)!.general):Text (selectedCategory!.sourceTitle),
-        actions: [IconButton(onPressed: (){}, icon: Icon(Icons.search_sharp))],
+        actions: [IconButton(onPressed: (){
+          Navigator.of(context).pushNamed(searchTab.routeName);
+
+
+        }, icon: Icon(Icons.search_sharp))],
       ),
       body: Padding(
         padding:  EdgeInsets.symmetric(vertical:height*0.04 ),

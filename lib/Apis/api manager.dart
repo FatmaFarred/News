@@ -49,5 +49,26 @@ class ApiManeger {
 
   }
 
+  static Future<NewsResponse?>searchNews(String searchKeyWord)async{
+    
+    Uri url = Uri.https(ApiConstants.baseSeverName,EndPoints.NewsApi,{
+      "apiKey":ApiConstants.apikey,
+      "q":searchKeyWord,
+
+
+    });
+
+    try {
+      var response = await http.get(url);
+      String responseBody = response.body;
+      var jsonresponse = jsonDecode(responseBody);
+      return NewsResponse.fromJson(jsonresponse);
+    }catch (e) {
+      throw e ;
+    }
+    }
+
   }
+
+
 
